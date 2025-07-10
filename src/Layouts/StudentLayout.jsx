@@ -1,11 +1,16 @@
-import React from 'react';
+import React from "react";
+import Navbar from "../shared/Navbar";
+import { Outlet } from "react-router";
 
 const StudentLayout = () => {
-    return (
-        <>
-            
-        </>
-    );
+  return (
+    <>
+      
+      <main>
+        <Outlet></Outlet>
+      </main>
+    </>
+  );
 };
 
 export default StudentLayout;
