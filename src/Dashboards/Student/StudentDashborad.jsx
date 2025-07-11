@@ -1,17 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
-import { Menu } from "lucide-react";
-import {
-  LayoutDashboard,
-  CalendarDays,
-  FileText,
-  MapPin,
-  Plane,
-  MessageCircle,
-  User,
-  LogOut,
-  PlusCircle,
-} from "lucide-react";
+import { LayoutDashboard, User, BookOpen, Menu } from "lucide-react";
+
 // import UserDropdown from "../Admin/Components/UserDropdown/UserDropdown";
 
 const StudentDashboard = () => {
@@ -23,7 +13,7 @@ const StudentDashboard = () => {
       {/* Main content */}
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="w-full navbar bg-base-300">
+        <div className="w-full navbar bg-blue-100">
           <div className="flex-none lg:hidden">
             {/* Toggle button (only visible on small screens) */}
             <label
@@ -33,7 +23,9 @@ const StudentDashboard = () => {
               <Menu className="w-6 h-6" />
             </label>
           </div>
-          <div className="flex-1 px-4 text-xl font-bold">RideApp Dashboard</div>
+          <div className="flex-1 px-4 text-xl font-bold">
+            Classify Student Dashboard
+          </div>
           {/* <UserDropdown /> */}
         </div>
 
@@ -43,8 +35,8 @@ const StudentDashboard = () => {
         </main>
 
         {/* Footer */}
-        <footer className="bg-base-300 text-center py-4">
-          <p>© 2025 RideApp. All rights reserved.</p>
+        <footer className="bg-blue-100 text-center py-4">
+          <p>© 2025 classify. All rights reserved.</p>
         </footer>
       </div>
 
@@ -54,7 +46,7 @@ const StudentDashboard = () => {
           htmlFor="dashboard-drawer"
           className="drawer-overlay lg:hidden"
         ></label>
-        <aside className="menu p-4 w-64 bg-base-200 text-base-content min-h-screen">
+        <aside className="menu p-4 w-64 bg-blue-50 text-base-content min-h-screen">
           <h2 className="text-xl font-bold mb-4">My Menu</h2>
           <ul className="menu p-0 space-y-1">
             <li>
@@ -64,25 +56,18 @@ const StudentDashboard = () => {
             </li>
             <li>
               <Link
-                to="/dashboard/myBookings"
+                to="/dashboard/my-enroll-class"
                 className="flex items-center gap-2"
               >
-                <CalendarDays size={18} /> My Bookings
+                <BookOpen size={18} /> My enroll class
               </Link>
             </li>
             <li>
-              <Link to="/" className="flex items-center gap-2">
-                <PlusCircle size={18} /> Make a Booking
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard/invoice" className="flex items-center gap-2">
-                <FileText size={18} /> Invoices
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard/flights" className="flex items-center gap-2">
-                <Plane size={18} /> My Flights
+              <Link
+                to="/dashboard/my-profile"
+                className="flex items-center gap-2"
+              >
+                <User size={18} /> Profile
               </Link>
             </li>
           </ul>

@@ -1,0 +1,88 @@
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
+import axios from "axios";
+
+ const enrolledClassessss = [
+  {
+    _id: "cl1",
+    title: "Full Stack Web Development",
+    instructorName: "John Doe",
+    image: "https://i.ibb.co/QnC6T2q/web-dev.jpg",
+  },
+  {
+    _id: "cl2",
+    title: "Digital Marketing Mastery",
+    instructorName: "Jane Smith",
+    image: "https://i.ibb.co/V2fmyYt/digital-marketing.jpg",
+  },
+  {
+    _id: "cl3",
+    title: "Graphic Design for Beginners",
+    instructorName: "Alex Johnson",
+    image: "https://i.ibb.co/ZfWwLT4/graphic-design.jpg",
+  },
+];
+
+
+const MyEnrollClasses = () => {
+  const { data: enrolledClasses = [], isLoading } = useQuery({
+    queryKey: ["enrolledClasses"],
+    queryFn: async () => {
+      const res = await axios.get("/api/enrolled-classes"); // API endpoint
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+
+  return (
+    <div className="p-6">
+      {enrolledClassessss.length === 0 ? (
+        <div className="text-center py-20">
+          <h2 className="text-2xl font-semibold text-gray-600 mb-4">
+            You haven’t enrolled in any classes yet.
+          </h2>
+          <p className="text-gray-500 mb-6">
+            Explore our courses and start learning today!
+          </p>
+          <Link
+            to="/all-classes"
+            className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition"
+          >
+            Browse Classes
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {enrolledClassessss.map((cls) => (
+            <div
+              key={cls._id}
+              className="bg-white rounded-2xl shadow-md overflow-hidden border"
+            >
+              <img
+                src={cls.image}
+                alt={cls.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-gray-800">{cls.title}</h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  Instructor: {cls.instructorName}
+                </p>
+                <Link
+                  to={`/dashboard/myenroll-class/${cls._id}`}
+                  className="inline-block px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg"
+                >
+                  Continue
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MyEnrollClasses;

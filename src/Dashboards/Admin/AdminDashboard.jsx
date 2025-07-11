@@ -1,15 +1,12 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
-import { Menu } from "lucide-react";
+import { UserCheck, Users, ClipboardList, User, Menu } from "lucide-react";
+
 import {
   LayoutDashboard,
   CalendarDays,
   FileText,
-  MapPin,
   Plane,
-  MessageCircle,
-  User,
-  LogOut,
   PlusCircle,
 } from "lucide-react";
 // import UserDropdown from "../Admin/Components/UserDropdown/UserDropdown";
@@ -33,7 +30,7 @@ const AdminDashboard = () => {
               <Menu className="w-6 h-6" />
             </label>
           </div>
-          <div className="flex-1 px-4 text-xl font-bold">RideApp Dashboard</div>
+          <div className="flex-1 px-4 text-xl font-bold">Classify Admin Dashboard</div>
           {/* <UserDropdown /> */}
         </div>
 
@@ -67,22 +64,25 @@ const AdminDashboard = () => {
                 to="/dashboard/myBookings"
                 className="flex items-center gap-2"
               >
-                <CalendarDays size={18} /> My Bookings
+                <UserCheck size={18} /> Teacher Request
               </Link>
             </li>
             <li>
               <Link to="/" className="flex items-center gap-2">
-                <PlusCircle size={18} /> Make a Booking
+                <Users size={18} />
+                Users
               </Link>
             </li>
             <li>
               <Link to="/dashboard/invoice" className="flex items-center gap-2">
-                <FileText size={18} /> Invoices
+                <ClipboardList size={18} />
+                All classes
               </Link>
             </li>
             <li>
               <Link to="/dashboard/flights" className="flex items-center gap-2">
-                <Plane size={18} /> My Flights
+                <User size={18} />
+                Profile
               </Link>
             </li>
           </ul>

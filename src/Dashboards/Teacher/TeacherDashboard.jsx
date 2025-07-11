@@ -1,17 +1,8 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
 import { Menu } from "lucide-react";
-import {
-  LayoutDashboard,
-  CalendarDays,
-  FileText,
-  MapPin,
-  Plane,
-  MessageCircle,
-  User,
-  LogOut,
-  PlusCircle,
-} from "lucide-react";
+import { FilePlus,LayoutDashboard, NotebookText, User2 } from "lucide-react";
+
 // import UserDropdown from "../Admin/Components/UserDropdown/UserDropdown";
 
 const TeacherDashboard = () => {
@@ -67,22 +58,17 @@ const TeacherDashboard = () => {
                 to="/dashboard/myBookings"
                 className="flex items-center gap-2"
               >
-                <CalendarDays size={18} /> My Bookings
+                <FilePlus size={18} /> Add class
               </Link>
             </li>
             <li>
               <Link to="/" className="flex items-center gap-2">
-                <PlusCircle size={18} /> Make a Booking
+                <NotebookText size={18} /> My class
               </Link>
             </li>
             <li>
               <Link to="/dashboard/invoice" className="flex items-center gap-2">
-                <FileText size={18} /> Invoices
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard/flights" className="flex items-center gap-2">
-                <Plane size={18} /> My Flights
+                <User2 size={18} /> Profile
               </Link>
             </li>
           </ul>

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useAuth } from "../../hooks/useAuth"; // assuming you have an auth context
+import useAuth from "../../Hook/useAuth";
 
 const categories = [
   "Web Development",
