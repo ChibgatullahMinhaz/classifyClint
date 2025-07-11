@@ -11,7 +11,7 @@ const Footer = () => {
   const siteName = "Classify";
 
   return (
-    <footer className="bg-base-200 text-base-content py-10 px-6 md:px-20">
+    <footer className=" text-base-content py-10 px-6 md:px-20">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
         {/* Column 1: Logo + About */}
