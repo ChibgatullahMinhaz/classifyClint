@@ -132,37 +132,6 @@ const TeacherCTASection = () => {
             <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-primary rounded-full opacity-20 blur-2xl"></div>
           </div>
         </div>
-
-        {/* Success Stories */}
-        <div className="mt-20 text-center">
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-            Success Stories from Our Instructors
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-card rounded-xl p-6 border border-border">
-              <div className="text-4xl mb-4">💰</div>
-              <h4 className="font-semibold text-foreground mb-2">Sarah Johnson</h4>
-              <p className="text-sm text-muted-foreground">
-                "I've earned over $50,000 teaching web development courses while working full-time."
-              </p>
-            </div>
-            <div className="bg-card rounded-xl p-6 border border-border">
-              <div className="text-4xl mb-4">🌟</div>
-              <h4 className="font-semibold text-foreground mb-2">Mike Chen</h4>
-              <p className="text-sm text-muted-foreground">
-                "Teaching on EduManage helped me become a recognized expert in digital marketing."
-              </p>
-            </div>
-            <div className="bg-card rounded-xl p-6 border border-border">
-              <div className="text-4xl mb-4">🚀</div>
-              <h4 className="font-semibold text-foreground mb-2">Dr. Emily Rodriguez</h4>
-              <p className="text-sm text-muted-foreground">
-                "My ML courses reached over 10,000 students worldwide in just 6 months."
-              </p>
-            </div>
-          </div>
-        </div>
-        
       </div>
     </section>
   );

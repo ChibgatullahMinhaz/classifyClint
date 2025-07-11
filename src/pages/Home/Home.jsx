@@ -5,6 +5,7 @@ import PopularClassesSection from '../../Components/Home/PopularClassesSection';
 import FeedbackSection from '../../Components/Home/FeedbackSection';
 import StatsSection from '../../Components/Home/StatsSection';
 import TeacherCTASection from '../../Components/Home/TeacherCTASection';
+import StudyAnywhereSection from '../../Components/Home/StudyAnywhereSection';
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
             <FeedbackSection />
             <StatsSection />
             <TeacherCTASection />
+            <StudyAnywhereSection />
         </>
     );
 };
