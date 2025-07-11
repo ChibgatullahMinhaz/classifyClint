@@ -29,9 +29,13 @@ const partners = [
 const PartnersSection = () => {
   return (
     <section className="bg-gray-50 py-12 px-6 md:px-16">
-      <h2 className="text-3xl font-bold text-center mb-8 text-blue-600">
-        Our Partners & Collaborators
+      <h2 className="text-3xl font-bold text-center mb-3 text-blue-600">
+        Our Trusted Partners
       </h2>
+      <p className="text-lg text-center mb-8">
+        We collaborate with industry leaders and educational institutions to
+        provide the best learning experience for our students.
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 items-center">
         {partners.map(({ name, logo, description }) => (
           <div
