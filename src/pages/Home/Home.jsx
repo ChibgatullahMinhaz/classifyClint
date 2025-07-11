@@ -4,6 +4,7 @@ import PartnersSection from '../../Components/Home/PartnersSection';
 import PopularClassesSection from '../../Components/Home/PopularClassesSection';
 import FeedbackSection from '../../Components/Home/FeedbackSection';
 import StatsSection from '../../Components/Home/StatsSection';
+import TeacherCTASection from '../../Components/Home/TeacherCTASection';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <PopularClassesSection />
             <FeedbackSection />
             <StatsSection />
+            <TeacherCTASection />
         </>
     );
 };
