@@ -28,7 +28,7 @@ const Navbar = ({ user, onLogout }) => {
             </Link>
           </li>
           <li>
-            <Link to="/classes" className="hover:text-primary ">
+            <Link to="/AllClasses" className="hover:text-primary ">
               All Classes
             </Link>
           </li>

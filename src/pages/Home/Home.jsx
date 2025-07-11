@@ -8,6 +8,7 @@ import TeacherCTASection from "../../Components/Home/TeacherCTASection";
 import StudyAnywhereSection from "../../Components/Home/StudyAnywhereSection";
 import NewsletterSection from "../../Components/Home/NewsletterSection";
 import UpcomingEventsSection from "../../Components/Home/UpcomingEventsSection";
+import Achievement from "../../Components/Home/Achievement";
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       <TeacherCTASection />
       <StudyAnywhereSection />
       <UpcomingEventsSection />
+      <Achievement />
       <NewsletterSection />
     </>
   );

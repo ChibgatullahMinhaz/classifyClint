@@ -2,7 +2,7 @@ import React from "react";
 
 const NewsletterSection = () => {
   return (
-    <section className="py-20 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300">
+    <section className="max-w-6xl my-10  mx-auto py-10 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
           Subscribe to our Newsletter for Newest Course Updates
