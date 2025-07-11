@@ -17,7 +17,7 @@ const Footer = () => {
         {/* Column 1: Logo + About */}
         <div>
           <Link to="/" className="flex items-center gap-2 mb-3">
-            <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded" />
+            <img src="https://cdn.vectorstock.com/i/500p/06/95/flat-web-template-with-lms-for-concept-design-vector-42750695.jpg" alt="Logo" className="h-10 w-10 rounded" />
             <span className="text-2xl font-bold text-primary">{siteName}</span>
           </Link>
           <p className="text-sm text-gray-600">

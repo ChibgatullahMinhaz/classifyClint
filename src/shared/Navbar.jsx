@@ -12,9 +12,9 @@ const Navbar = ({ user, onLogout }) => {
       <div className="flex-1">
         <Link
           to="/"
-          className="flex items-center gap-2 text-xl font-bold text-primary"
+          className="flex items-center gap-x-0.5 text-xl font-bold text-primary"
         >
-          <img src="/logo.png" alt="Logo" className="h-8 w-8 rounded" />
+          <img className="w-10" src="https://cdn.vectorstock.com/i/500p/06/95/flat-web-template-with-lms-for-concept-design-vector-42750695.jpg" />
           {siteName}
         </Link>
       </div>
@@ -28,7 +28,7 @@ const Navbar = ({ user, onLogout }) => {
             </Link>
           </li>
           <li>
-            <Link to="/classes" className="hover:text-primary">
+            <Link to="/classes" className="hover:text-primary ">
               All Classes
             </Link>
           </li>
