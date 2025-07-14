@@ -55,32 +55,32 @@ const AdminDashboard = () => {
           <h2 className="text-xl font-bold mb-4">My Menu</h2>
           <ul className="menu p-0 space-y-1">
             <li>
-              <Link to="/dashboard" className="flex items-center gap-2">
+              <Link to="/admin-dashboard" className="flex items-center gap-2">
                 <LayoutDashboard size={18} /> Dashboard
               </Link>
             </li>
             <li>
               <Link
-                to="/dashboard/myBookings"
+                to="/admin-dashboard/Teacher-Request"
                 className="flex items-center gap-2"
               >
                 <UserCheck size={18} /> Teacher Request
               </Link>
             </li>
             <li>
-              <Link to="/" className="flex items-center gap-2">
+              <Link to="/admin-dashboard/Users" className="flex items-center gap-2">
                 <Users size={18} />
                 Users
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/invoice" className="flex items-center gap-2">
+              <Link to="/admin-dashboard/AllClasses" className="flex items-center gap-2">
                 <ClipboardList size={18} />
                 All classes
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/flights" className="flex items-center gap-2">
+              <Link to="/admin-dashboard/Profile" className="flex items-center gap-2">
                 <User size={18} />
                 Profile
               </Link>

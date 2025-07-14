@@ -1,55 +1,144 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { useParams } from "react-router";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import Rating from "react-rating";
 
-const fetchClassById = async (id) => {
-  const res = await axios.get(`/api/classes/${id}`);
+const fetchClassDetails = async (id) => {
+  const res = await axios.get(`/api/my-enroll-class/${id}`);
   return res.data;
 };
 
-const ClassDetails = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+const submitAssignment = async ({ assignmentId, submissionData }) => {
+  return await axios.post(`/api/assignments/submit/${assignmentId}`, submissionData);
+};
 
-  const { data: classData, isLoading, error } = useQuery({
-    queryKey: ["class", id],
-    queryFn: () => fetchClassById(id),
+const submitEvaluation = async (evaluation) => {
+  return await axios.post(`/api/evaluation`, evaluation);
+};
+
+const MyEnrollClassDetails = () => {
+  const { id } = useParams();
+  const [showEvalModal, setShowEvalModal] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [description, setDescription] = useState("");
+
+  const { data: classData, isLoading, error, refetch } = useQuery({
+    queryKey: ["enroll-class", id],
+    queryFn: () => fetchClassDetails(id),
   });
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
-  if (error) return <p className="text-center mt-10 text-red-500">Failed to load class details.</p>;
+  const mutation = useMutation(submitAssignment, {
+    onSuccess: () => {
+      refetch(); // re-fetch data to update submission count
+    },
+  });
 
-  const {
-    title,
-    name,
-    image,
-    price,
-    description,
-    totalEnrollment,
-  } = classData || {};
+  const handleAssignmentSubmit = (e, assignmentId) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    mutation.mutate({
+      assignmentId,
+      submissionData: formData,
+    });
+  };
+
+  const handleEvaluationSubmit = async (e) => {
+    e.preventDefault();
+    await submitEvaluation({ classId: id, rating, description });
+    setShowEvalModal(false);
+    setRating(0);
+    setDescription("");
+  };
+
+  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Failed to load class details.</p>;
+
+  const { title, assignments = [] } = classData || {};
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <div className="grid md:grid-cols-2 gap-8 items-center">
-        <img src={image} alt={title} className="w-full h-80 object-cover rounded-lg shadow-md" />
-        
-        <div>
-          <h2 className="text-3xl font-bold mb-2">{title}</h2>
-          <p className="text-gray-600 mb-2">Instructor: <span className="font-semibold">{name}</span></p>
-          <p className="text-gray-500 mb-4">{description}</p>
-          <p className="text-lg font-medium">Price: <span className="text-blue-600">${price}</span></p>
-          <p className="text-sm text-gray-500 mb-4">Total Enrolled: {totalEnrollment}</p>
-          <button
-            onClick={() => navigate(`/payment/${id}`)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md transition"
-          >
-            Pay Now
-          </button>
-        </div>
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      {/* TER Button */}
+      <div className="fixed top-20 right-10 z-50">
+        <button onClick={() => setShowEvalModal(true)} className="btn btn-secondary">
+          Teaching Evaluation Report
+        </button>
       </div>
+
+      <h2 className="text-2xl font-bold mb-6">Enrolled Class: {title}</h2>
+
+      <div className="overflow-x-auto">
+        <table className="table table-zebra w-full">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Assignment Title</th>
+              <th>Description</th>
+              <th>Deadline</th>
+              <th>Submit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {assignments.map((assignment, idx) => (
+              <tr key={assignment._id}>
+                <td>{idx + 1}</td>
+                <td>{assignment.title}</td>
+                <td>{assignment.description}</td>
+                <td>{assignment.deadline}</td>
+                <td>
+                  <form
+                    onSubmit={(e) => handleAssignmentSubmit(e, assignment._id)}
+                    className="flex items-center gap-2"
+                  >
+                    <input
+                      name="submission"
+                      type="file"
+                      className="file-input file-input-bordered file-input-sm"
+                      required
+                    />
+                    <button type="submit" className="btn btn-sm btn-primary">
+                      Submit
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Evaluation Modal */}
+      {showEvalModal && (
+        <div className="modal modal-open">
+          <div className="modal-box max-w-md">
+            <h3 className="font-bold text-lg mb-4">Teaching Evaluation Report</h3>
+            <form onSubmit={handleEvaluationSubmit} className="space-y-4">
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Write your feedback"
+                className="textarea textarea-bordered w-full"
+                required
+              />
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium">Rating:</span>
+                <Rating
+                  initialRating={rating}
+                  onChange={(value) => setRating(value)}
+                  emptySymbol={<span className="text-gray-400 text-xl">☆</span>}
+                  fullSymbol={<span className="text-yellow-500 text-xl">★</span>}
+                />
+              </div>
+              <div className="modal-action">
+                <button type="submit" className="btn btn-success">Send</button>
+                <button onClick={() => setShowEvalModal(false)} className="btn">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default ClassDetails;
+export default MyEnrollClassDetails;

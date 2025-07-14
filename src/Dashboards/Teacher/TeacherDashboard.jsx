@@ -55,19 +55,19 @@ const TeacherDashboard = () => {
             </li>
             <li>
               <Link
-                to="/dashboard/myBookings"
+                to="/teacher-dashboard/addClass"
                 className="flex items-center gap-2"
               >
                 <FilePlus size={18} /> Add class
               </Link>
             </li>
             <li>
-              <Link to="/" className="flex items-center gap-2">
+              <Link to="/teacher-dashboard/myClass" className="flex items-center gap-2">
                 <NotebookText size={18} /> My class
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/invoice" className="flex items-center gap-2">
+              <Link to="/teacher-dashboard/myProfile" className="flex items-center gap-2">
                 <User2 size={18} /> Profile
               </Link>
             </li>

@@ -12,6 +12,12 @@ import AdminDashboard from "../Dashboards/Admin/AdminDashboard";
 import AdminLayout from "../Layouts/AdminLayout";
 import MyEnrollClasses from "../pages/MyEnrollClasses/MyEnrollClasses";
 import StudentProfile from "../pages/StudentProfile/StudentProfile";
+import AddClass from "../pages/AddClass/AddClass";
+import MyClasses from "../pages/MyClasses/MyClasses";
+import AdminProfile from "../Dashboards/Admin/pages/AdminProfile";
+import AdminAllClasses from "../Dashboards/Admin/pages/AllClasses";
+import Users from "../Dashboards/Admin/pages/Users";
+import TeacherRequest from "../Dashboards/Admin/pages/TeacherRequest";
 
 export const router = createBrowserRouter([
   {
@@ -53,11 +59,41 @@ export const router = createBrowserRouter([
   {
     path: "teacher-dashboard",
     element: <TeacherLayout />,
-    children: [],
+    children: [
+      {
+        path: "addClass",
+        element: <AddClass />,
+      },
+      {
+        path: "myClass",
+        element: <MyClasses />,
+      },
+      {
+        path: "myProfile",
+        element: <StudentProfile />,
+      },
+    ],
   },
   {
     path: "admin-dashboard",
     element: <AdminLayout />,
-    children: [],
+    children: [
+      {
+        path: "Teacher-Request",
+        Component: TeacherRequest,
+      },
+      {
+        path: "Users",
+        Component: Users,
+      },
+      {
+        path: "AllClasses",
+        Component: AdminAllClasses,
+      },
+      {
+        path: "Profile",
+        Component: AdminProfile,
+      },
+    ],
   },
 ]);

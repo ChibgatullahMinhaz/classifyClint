@@ -95,7 +95,7 @@ const AllClasses = () => {
                 <span className="text-gray-500">Enrolled: {cls.totalEnrolled || 0}</span>
               </div>
               <Link
-                to={`/class/${cls._id}`}
+                to={`/classDetails/${cls._id}`}
                 className="mt-4 block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-2 rounded"
               >
                 Enroll
