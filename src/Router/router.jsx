@@ -18,6 +18,7 @@ import AdminProfile from "../Dashboards/Admin/pages/AdminProfile";
 import AdminAllClasses from "../Dashboards/Admin/pages/AllClasses";
 import Users from "../Dashboards/Admin/pages/Users";
 import TeacherRequest from "../Dashboards/Admin/pages/TeacherRequest";
+import Dashboard from "../Dashboards/Teacher/pages/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
     path: "teacher-dashboard",
     element: <TeacherLayout />,
     children: [
+      {
+        index: true,
+        Component: Dashboard,
+      },
       {
         path: "addClass",
         element: <AddClass />,

@@ -13,16 +13,22 @@ import Achievement from "../../Components/Home/Achievement";
 const Home = () => {
   return (
     <>
-      <Banner />
+      <div className="p-2">
+        <Banner />
+      </div>
       <PartnersSection />
       <PopularClassesSection />
-      <FeedbackSection />
+      <div className="p-2">
+        <FeedbackSection />
+      </div>
       <StatsSection />
       <TeacherCTASection />
       <StudyAnywhereSection />
       <UpcomingEventsSection />
-      <Achievement />
-      <NewsletterSection />
+      <div className="p-2">
+        <Achievement />
+        <NewsletterSection />
+      </div>{" "}
     </>
   );
 };

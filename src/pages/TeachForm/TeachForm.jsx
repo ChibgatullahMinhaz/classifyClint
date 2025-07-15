@@ -15,7 +15,7 @@ const categories = [
 const experienceOptions = ["Beginner", "Mid-level", "Experienced"];
 
 const TeachForm = () => {
-  const { user, role } = useAuth(); // user = {name, email, photoURL}, role = student/teacher/pending
+  const { user, role } = useAuth(); 
   const { register, handleSubmit, reset } = useForm();
 
   const { data: existingRequest } = useQuery({

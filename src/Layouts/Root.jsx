@@ -5,13 +5,13 @@ import Footer from "../shared/Footer";
 
 const Root = () => {
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <Navbar user={null} onLogout={() => {}} />
       <main>
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

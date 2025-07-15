@@ -40,7 +40,7 @@ const Banner = () => {
       autoplay={{ delay: 3000, disableOnInteraction: false }}
       pagination={{ clickable: true }}
       navigation={true}
-      className="rounded-lg"
+      className="rounded-lg p-4"
     >
       {banners.map((slide, index) => (
         <SwiperSlide key={index}>

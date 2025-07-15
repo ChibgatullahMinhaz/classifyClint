@@ -49,7 +49,7 @@ const TeacherDashboard = () => {
           <h2 className="text-xl font-bold mb-4">My Menu</h2>
           <ul className="menu p-0 space-y-1">
             <li>
-              <Link to="/dashboard" className="flex items-center gap-2">
+              <Link to="/teacher-dashboard" className="flex items-center gap-2">
                 <LayoutDashboard size={18} /> Dashboard
               </Link>
             </li>
