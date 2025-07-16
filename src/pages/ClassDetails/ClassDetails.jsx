@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import axiosPublic from "../../Service/AxiosPublic";
+import axiosSecure from "../../Service/AxiosSecure";
+import useAuth from "../../Hook/useAuth";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 
 const fetchClassInfo = async (id) => {
   const res = await axiosPublic.get(`/api/classDetails/${id}`);
@@ -11,6 +14,19 @@ const fetchClassInfo = async (id) => {
 const ClassDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const { data: enrolledClassIds = [], isLoading: enrollmentLoading } =
+    useQuery({
+      queryKey: ["enrolledClassIds", user?.email],
+      queryFn: async () => {
+        const res = await axiosSecure.get(
+          `/api/user-enrollments?email=${user?.email}`
+        );
+        return res.data;
+      },
+      enabled: !!user?.email,
+    });
 
   const {
     data: classData,
@@ -20,23 +36,18 @@ const ClassDetails = () => {
     queryKey: ["class-details", id],
     queryFn: () => fetchClassInfo(id),
   });
-  console.log(classData);
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  
+  // if (isLoading ) return <LoadingSpinner />;
+  if (enrollmentLoading &&isLoading ) return <LoadingSpinner />;
   if (error)
     return (
       <p className="text-center text-red-500">Error loading class details.</p>
     );
 
-  const {
-    title,
-    teacher,
-    price,
-    description,
-    image,
-    category,
-    experience,
-    name,
-  } = classData || {};
+  const { title, price, description, image, category, experience, name } =
+    classData || {};
+
+  const isEnrolled = enrolledClassIds.includes(id);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -72,12 +83,21 @@ const ClassDetails = () => {
 
           {/* Pay Button */}
           <div className="mt-6">
-            <button
-              onClick={() => navigate(`/payFor/${id}`)}
-              className="btn btn-primary w-full"
-            >
-              Pay Now
-            </button>
+            {isEnrolled ? (
+              <button
+                className="btn btn-primary w-full text-black cursor-not-allowed"
+                disabled
+              >
+                Enrolled ✅
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate(`/payFor/${id}`)}
+                className="btn btn-primary w-full"
+              >
+                Pay Now
+              </button>
+            )}
           </div>
         </div>
       </div>
