@@ -13,7 +13,7 @@ const Root = () => {
     // Simulate a brief loading delay (can be removed if not needed)
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 500); // 500ms spinner
+    }, 20); 
 
     return () => clearTimeout(timeout);
   }, [location.pathname]);

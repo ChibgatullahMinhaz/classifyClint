@@ -7,6 +7,15 @@ import useAuth from "../../Hook/useAuth";
 import axiosSecure from "../../Service/AxiosSecure";
 import Swal from "sweetalert2";
 
+const experienceOptions = ["Beginner", "Mid-level", "Experienced"];
+const categories = [
+  "Web Development",
+  "Digital Marketing",
+  "Graphic Design",
+  "Cyber Security",
+  "Data Science",
+];
+
 const AddClass = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -33,14 +42,14 @@ const AddClass = () => {
       return axiosSecure.post(`/addClasses`, classData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["my-classes"] }); 
-       Swal.fire({
-            icon: "success",
-            title: "Approved!",
-            text: "Thanks for adding Class please wait to approve!.",
-            timer: 2000,
-            showConfirmButton: false,
-          });
+      queryClient.invalidateQueries({ queryKey: ["my-classes"] });
+      Swal.fire({
+        icon: "success",
+        title: "Approved!",
+        text: "Thanks for adding Class please wait to approve!.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
       reset();
       navigate("/teacher-dashboard/myClass");
     },
@@ -63,17 +72,23 @@ const AddClass = () => {
 
   return (
     <div className="max-w-2xl mx-auto bg-white p-6 mt-10 rounded-md shadow">
-      <h2 className="text-2xl font-semibold text-center mb-6">Add a New Class</h2>
+      <h2 className="text-2xl font-semibold text-center mb-6">
+        Add a New Class
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block font-medium">Title</label>
           <input
             type="text"
             {...register("title", { required: "Title is required" })}
-            className={`input input-bordered w-full ${errors.title ? "input-error" : ""}`}
+            className={`input input-bordered w-full ${
+              errors.title ? "input-error" : ""
+            }`}
             disabled={isSubmitting}
           />
-          {errors.title && <p className="text-red-500 mt-1">{errors.title.message}</p>}
+          {errors.title && (
+            <p className="text-red-500 mt-1">{errors.title.message}</p>
+          )}
         </div>
 
         <div>
@@ -85,8 +100,7 @@ const AddClass = () => {
             className="input input-bordered w-full bg-gray-100"
           />
         </div>
-
-        <div>
+         <div>
           <label className="block font-medium">Email</label>
           <input
             type="email"
@@ -95,6 +109,37 @@ const AddClass = () => {
             className="input input-bordered w-full bg-gray-100"
           />
         </div>
+        <div>
+          <label className="block mb-1">Experience Level</label>
+          <select
+            {...register("experience")}
+            required
+            className="w-full border p-2 rounded"
+          >
+            <option value="">Select experience</option>
+            {experienceOptions.map((exp) => (
+              <option key={exp} value={exp}>
+                {exp}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block mb-1">Category</label>
+          <select
+            {...register("category")}
+            required
+            className="w-full border p-2 rounded"
+          >
+            <option value="">Select a category</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+       
 
         <div>
           <label className="block font-medium">Price ($)</label>
@@ -105,20 +150,30 @@ const AddClass = () => {
               valueAsNumber: true,
               min: { value: 0, message: "Price must be positive" },
             })}
-            className={`input input-bordered w-full ${errors.price ? "input-error" : ""}`}
+            className={`input input-bordered w-full ${
+              errors.price ? "input-error" : ""
+            }`}
             disabled={isSubmitting}
           />
-          {errors.price && <p className="text-red-500 mt-1">{errors.price.message}</p>}
+          {errors.price && (
+            <p className="text-red-500 mt-1">{errors.price.message}</p>
+          )}
         </div>
 
         <div>
           <label className="block font-medium">Description</label>
           <textarea
-            {...register("description", { required: "Description is required" })}
-            className={`textarea textarea-bordered w-full ${errors.description ? "textarea-error" : ""}`}
+            {...register("description", {
+              required: "Description is required",
+            })}
+            className={`textarea textarea-bordered w-full ${
+              errors.description ? "textarea-error" : ""
+            }`}
             disabled={isSubmitting}
           />
-          {errors.description && <p className="text-red-500 mt-1">{errors.description.message}</p>}
+          {errors.description && (
+            <p className="text-red-500 mt-1">{errors.description.message}</p>
+          )}
         </div>
 
         <div>
@@ -126,10 +181,14 @@ const AddClass = () => {
           <input
             type="text"
             {...register("image", { required: "Image URL is required" })}
-            className={`input input-bordered w-full ${errors.image ? "input-error" : ""}`}
+            className={`input input-bordered w-full ${
+              errors.image ? "input-error" : ""
+            }`}
             disabled={isSubmitting}
           />
-          {errors.image && <p className="text-red-500 mt-1">{errors.image.message}</p>}
+          {errors.image && (
+            <p className="text-red-500 mt-1">{errors.image.message}</p>
+          )}
         </div>
 
         <button
@@ -137,7 +196,9 @@ const AddClass = () => {
           className="btn btn-primary w-full mt-4"
           disabled={isSubmitting || addClassMutation.isLoading}
         >
-          {isSubmitting || addClassMutation.isLoading ? "Adding..." : "Add Class"}
+          {isSubmitting || addClassMutation.isLoading
+            ? "Adding..."
+            : "Add Class"}
         </button>
       </form>
     </div>

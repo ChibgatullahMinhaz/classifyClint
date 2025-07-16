@@ -1,60 +1,19 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import axiosSecure from "../../Service/AxiosSecure";
 
 const FeedbackSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const feedbacks = [
-    {
-      id: 1,
-      text: "The Full Stack Web Development course completely transformed my career. The instructor's teaching style was exceptional, and the hands-on projects gave me real-world experience.",
-      name: "John Martinez",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-      title: "Full Stack Web Development",
-      rating: 5
+  // Fetch classes
+  const { data: feedbacks = [] } = useQuery({
+    queryKey: ["feedbacks"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/feedbacks");
+      return res.data;
     },
-    {
-      id: 2,
-      text: "Sarah's Digital Marketing Mastery course helped me land my dream job. The strategies I learned increased our company's online presence by 300%.",
-      name: "Emma Thompson",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-      title: "Digital Marketing Mastery",
-      rating: 5
-    },
-    {
-      id: 3,
-      text: "Dr. Rodriguez's Machine Learning course was incredibly comprehensive. I went from knowing nothing about ML to building my own predictive models.",
-      name: "Michael Chen",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-      title: "Machine Learning Fundamentals",
-      rating: 5
-    },
-    {
-      id: 4,
-      text: "The UI/UX Design Bootcamp exceeded my expectations. Alex's feedback was always constructive, and I built an amazing portfolio during the course.",
-      name: "Sophia Davis",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-      title: "UI/UX Design Bootcamp",
-      rating: 5
-    },
-    {
-      id: 5,
-      text: "David's Mobile App Development course was exactly what I needed. I published my first app to the App Store just weeks after completing the course.",
-      name: "Alex Rodriguez",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
-      title: "Mobile App Development",
-      rating: 5
-    },
-    {
-      id: 6,
-      text: "The Cybersecurity Essentials course by Lisa was incredibly thorough. I now feel confident in protecting our organization's digital assets.",
-      name: "Rachel Kim",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face",
-      title: "Cybersecurity Essentials",
-      rating: 4
-    }
-  ];
-
+  });
   // Dynamically calculate itemsToShow based on window width
   const [itemsToShow, setItemsToShow] = useState(() => {
     if (typeof window !== "undefined") {
@@ -92,10 +51,21 @@ const FeedbackSection = () => {
     setCurrentIndex((prev) => (prev - 1 + maxIndex + 1) % (maxIndex + 1));
   };
 
-  const visibleFeedbacks = feedbacks.slice(currentIndex, currentIndex + itemsToShow);
+  const visibleFeedbacks = feedbacks.slice(
+    currentIndex,
+    currentIndex + itemsToShow
+  );
 
   // Raw Button component JSX
-  const Button = ({ children, onClick, disabled, variant = "default", size = "md", className = "", ...props }) => {
+  const Button = ({
+    children,
+    onClick,
+    disabled,
+    variant = "default",
+    size = "md",
+    className = "",
+    ...props
+  }) => {
     let baseClasses =
       "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
@@ -103,8 +73,7 @@ const FeedbackSection = () => {
       baseClasses +=
         " border border-gray-300 bg-transparent hover:bg-gray-100 text-gray-700";
     } else {
-      baseClasses +=
-        " bg-primary text-white hover:bg-primary-dark";
+      baseClasses += " bg-primary text-white hover:bg-primary-dark";
     }
 
     if (size === "sm") {
@@ -155,7 +124,8 @@ const FeedbackSection = () => {
             What Our Students Say
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Real feedback from students who have transformed their careers with our courses
+            Real feedback from students who have transformed their careers with
+            our courses
           </p>
         </div>
 
@@ -219,8 +189,12 @@ const FeedbackSection = () => {
                       className="w-12 h-12 rounded-full object-cover mr-4"
                     />
                     <div>
-                      <h4 className="font-semibold text-foreground">{feedback.name}</h4>
-                      <p className="text-sm text-muted-foreground">{feedback.title}</p>
+                      <h4 className="font-semibold text-foreground">
+                        {feedback.name}
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {feedback.title}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -253,8 +227,6 @@ const FeedbackSection = () => {
             ))}
           </div>
         </div>
-
-        
       </div>
     </section>
   );

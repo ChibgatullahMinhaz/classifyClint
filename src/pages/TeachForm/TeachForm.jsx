@@ -6,6 +6,8 @@ import useAuth from "../../Hook/useAuth";
 import axiosSecure from "../../Service/AxiosSecure";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../Components/LoadingSpinner";
+import { Link } from "react-router";
+import { LayoutDashboard } from "lucide-react";
 
 const categories = [
   "Web Development",
@@ -18,7 +20,7 @@ const categories = [
 const experienceOptions = ["Beginner", "Mid-level", "Experienced"];
 
 const TeachForm = () => {
-  const { user, role } = useAuth();
+  const { user, userRole } = useAuth();
   const { register, handleSubmit, reset } = useForm();
 
   const {
@@ -81,13 +83,27 @@ const TeachForm = () => {
   if (isLoading || isPending) {
     return <LoadingSpinner />;
   }
-  if (role === "teacher") {
-    return (
-      <div className="max-w-2xl mx-auto mt-10 text-center">
-        <h2 className="text-2xl font-bold">You're already a teacher! 🎉</h2>
-      </div>
-    );
-  }
+  console.log(userRole);
+  if (userRole.role === "teacher") {
+  return (
+    <div className="max-w-2xl mx-auto mt-10 text-center">
+      <h2 className="text-3xl font-bold mb-4 text-green-600">You're already a teacher! 🎉</h2>
+      <p className="text-gray-700 mb-2">
+        Great to see you again, mentor! Your knowledge is shaping future minds.
+      </p>
+      <p className="text-gray-600 mb-4">
+        Manage your classes, track student progress, and create new assignments directly from your dashboard.
+      </p>
+      <Link
+        to="/teacher-dashboard"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition"
+      >
+        <LayoutDashboard size={18} /> Go to Dashboard
+      </Link>
+    </div>
+  );
+}
+
 
   if (existingRequest?.status === "pending") {
     return (
@@ -119,7 +135,7 @@ const TeachForm = () => {
     <>
       <div className="max-w-3xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">
-          Apply to Teach on EduManage
+          Apply to Teach on Classify
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>

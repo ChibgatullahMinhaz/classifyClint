@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.init";
 import AuthContext from "../CreateContex/AuthContext";
+import axiosSecure from "../../Service/AxiosSecure";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -41,22 +42,20 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      // if (currentUser.email) {
-      //   try {
-      //     const res = await axiosSecurePublic.get(
-      //       `api/userByEmail?email=${currentUser.email}`
-      //     );
-      //     if (res.data) {
-      //       setUserRole(res.data);
-      //       localStorage.setItem("userRole", JSON.stringify(res.data));
-      //     }
-      //   } catch (err) {
-      //     console.error("Error fetching user role:", err);
-      //   }
-      // } else {
-      //   setUserRole(null);
-      //   localStorage.removeItem("userRole");
-      // }
+      if (currentUser.email) {
+        try {
+          const res = await axiosSecure.get(
+            `users/role?email=${currentUser.email}`
+          );
+          if (res.data) {
+            setUserRole(res.data);
+          }
+        } catch (err) {
+          console.error("Error fetching user role:", err);
+        }
+      } else {
+        setUserRole(null);
+      }
       setLoading(false);
     });
 

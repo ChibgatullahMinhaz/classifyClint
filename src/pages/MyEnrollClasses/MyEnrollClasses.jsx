@@ -29,7 +29,7 @@ const MyEnrollClasses = () => {
   const { data: enrolledClasses = [], isLoading } = useQuery({
     queryKey: ["enrolledClasses"],
     queryFn: async () => {
-      const res = await axios.get("/api/enrolled-classes"); // API endpoint
+      const res = await axios.get("/api/enrolled-classes"); 
       return res.data;
     },
   });

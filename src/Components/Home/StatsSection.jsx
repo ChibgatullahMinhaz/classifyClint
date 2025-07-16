@@ -1,25 +1,36 @@
+import { useQuery } from "@tanstack/react-query";
 import { Users, BookOpen, UserCheck, TrendingUp } from "lucide-react";
+import axiosSecure from "../../Service/AxiosSecure";
 
 const StatsSection = () => {
+  // Fetch classes
+  const { data: statictis = {} } = useQuery({
+    queryKey: ["statictis"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/dashboard-stats");
+      return res.data;
+    },
+  });
+  console.log(statictis);
   const stats = [
     {
       icon: Users,
       title: "Total Users",
-      value: "50,000+",
+      value: statictis?.totalUsers,
       description: "Active learners on our platform",
       color: "text-blue-500",
     },
     {
       icon: BookOpen,
       title: "Total Classes",
-      value: "1,200+",
+      value: statictis?.totalClasses,
       description: "Courses across various categories",
       color: "text-green-500",
     },
     {
       icon: UserCheck,
       title: "Total Enrollments",
-      value: "125,000+",
+      value: statictis?.totalEnrollments,
       description: "Students enrolled in our courses",
       color: "text-purple-500",
     },
@@ -57,7 +68,9 @@ const StatsSection = () => {
                     <h4 className="text-lg font-semibold text-foreground mb-2">
                       {stat.title}
                     </h4>
-                    <p className="text-muted-foreground text-sm">{stat.description}</p>
+                    <p className="text-muted-foreground text-sm">
+                      {stat.description}
+                    </p>
                   </div>
                 </div>
               );
@@ -80,10 +93,10 @@ const StatsSection = () => {
                 Join Our Growing Community
               </h2>
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Be part of a thriving educational ecosystem where students from around the
-                world come together to learn, grow, and achieve their career goals. Our
-                platform has helped thousands of individuals transform their lives through
-                quality education.
+                Be part of a thriving educational ecosystem where students from
+                around the world come together to learn, grow, and achieve their
+                career goals. Our platform has helped thousands of individuals
+                transform their lives through quality education.
               </p>
 
               <div className="space-y-4">
@@ -107,7 +120,9 @@ const StatsSection = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span className="text-foreground">Lifetime access to course materials</span>
+                  <span className="text-foreground">
+                    Lifetime access to course materials
+                  </span>
                 </div>
               </div>
             </div>
@@ -115,7 +130,6 @@ const StatsSection = () => {
         </div>
 
         {/* Achievement Banner */}
-       
       </div>
     </section>
   );

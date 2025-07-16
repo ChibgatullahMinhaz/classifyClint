@@ -19,6 +19,13 @@ import AdminAllClasses from "../Dashboards/Admin/pages/AllClasses";
 import Users from "../Dashboards/Admin/pages/Users";
 import TeacherRequest from "../Dashboards/Admin/pages/TeacherRequest";
 import Dashboard from "../Dashboards/Teacher/pages/Dashboard";
+import NotFound from "../pages/NotFound/NotFound";
+import Unauthorized from "../pages/Unauthorized/Unauthorized";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
+import AuthLayout from "../Layouts/AuthLayout";
+import PaymentPage from "../pages/Payment/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "classDetails/:id",
         element: <ClassDetails />,
+      },
+      {
+        path: "payFor/:id",
+        element: <PaymentPage />,
       },
       {
         path: "techOn",
@@ -100,5 +111,32 @@ export const router = createBrowserRouter([
         Component: AdminProfile,
       },
     ],
+  },
+  {
+    path: "auth",
+    element: <AuthLayout></AuthLayout>,
+    children: [
+      {
+        path: "login",
+        Component: Login,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/unauthorized",
+    element: (
+      <PrivateRoute>
+        <Unauthorized />,
+      </PrivateRoute>
+    ),
+  },
+
+  {
+    path: "*",
+    Component: NotFound,
   },
 ]);

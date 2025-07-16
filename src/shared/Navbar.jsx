@@ -1,11 +1,42 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router"; // ✅ Correct import
 import { ChevronDown, LogOut, LayoutDashboard } from "lucide-react";
+import useAuth from "../Hook/useAuth";
 
-const Navbar = ({ user, onLogout }) => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, userRole } = useAuth();
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const siteName = "Classify";
+  const dropdownRef = useRef();
 
+  // ✅ Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  const goToDashboard = () => {
+    if (!user || !userRole?.role) return;
+    const role = userRole.role.toLowerCase();
+    switch (role) {
+      case "admin":
+        navigate("/admin-dashboard");
+        break;
+      case "teacher":
+        navigate("/teacher-dashboard");
+        break;
+      default:
+        navigate("/dashboard");
+    }
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50 px-4 md:px-10">
       {/* Left: Logo + Site Name */}
@@ -14,7 +45,11 @@ const Navbar = ({ user, onLogout }) => {
           to="/"
           className="flex items-center gap-x-0.5 text-xl font-bold text-primary"
         >
-          <img className="w-10" src="https://cdn.vectorstock.com/i/500p/06/95/flat-web-template-with-lms-for-concept-design-vector-42750695.jpg" />
+          <img
+            className="w-10"
+            src="https://cdn.vectorstock.com/i/500p/06/95/flat-web-template-with-lms-for-concept-design-vector-42750695.jpg"
+            alt="logo"
+          />
           {siteName}
         </Link>
       </div>
@@ -28,7 +63,7 @@ const Navbar = ({ user, onLogout }) => {
             </Link>
           </li>
           <li>
-          <Link to="/AllClasses" className="hover:text-primary ">
+            <Link to="/AllClasses" className="hover:text-primary">
               All Classes
             </Link>
           </li>
@@ -40,16 +75,18 @@ const Navbar = ({ user, onLogout }) => {
         </ul>
       </div>
 
-      {/* Right: Auth or Profile */}
-      <div className="flex-none gap-2">
+      {/* Right: Profile or Login */}
+      <div className="flex gap-2">
         {!user ? (
-          <Link to="/login" className="btn btn-primary btn-sm px-4 text-white">
+          <Link
+            to="/auth/login"
+            className="btn btn-primary btn-sm px-4 text-white"
+          >
             Sign In
           </Link>
         ) : (
-          <div className="dropdown dropdown-end">
+          <div className="relative z-50" ref={dropdownRef}>
             <div
-              tabIndex={0}
               className="btn btn-ghost btn-circle avatar"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
@@ -58,26 +95,20 @@ const Navbar = ({ user, onLogout }) => {
               </div>
             </div>
             {dropdownOpen && (
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow-lg bg-base-100 rounded-box w-52 transition-all duration-150"
-              >
+              <ul className="absolute right-0 mt-2 w-52 bg-base-100 rounded-md shadow-lg p-2 z-50">
                 <li className="text-gray-800 font-semibold cursor-default">
-                  {user.name}
-                </li>
-                <li>
-                  <Link
-                    to="/dashboard"
-                    className="flex items-center gap-2 hover:bg-base-200"
-                  >
-                    <LayoutDashboard size={16} /> Dashboard
-                  </Link>
+                  {user.displayName}
                 </li>
                 <li>
                   <button
-                    onClick={onLogout}
-                    className="flex items-center text-red-600 hover:bg-base-200 gap-2"
+                    onClick={goToDashboard}
+                    className="flex items-center gap-2 hover:bg-base-200"
                   >
+                    <LayoutDashboard size={16} /> Dashboard
+                  </button>
+                </li>
+                <li>
+                  <button className="flex items-center text-red-600 hover:bg-base-200 gap-2">
                     <LogOut size={16} /> Logout
                   </button>
                 </li>
@@ -103,18 +134,15 @@ const Navbar = ({ user, onLogout }) => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow bg-base-100 rounded-box w-52"
-          >
+          <ul className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow bg-base-100 rounded-box w-52">
             <li>
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/classes">All Classes</Link>
+              <Link to="/AllClasses">All Classes</Link>
             </li>
             <li>
-              <Link to="/teach">Teach on {siteName}</Link>
+              <Link to="/techOn">Teach on {siteName}</Link>
             </li>
           </ul>
         </div>
