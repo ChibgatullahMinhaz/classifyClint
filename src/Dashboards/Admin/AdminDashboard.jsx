@@ -51,7 +51,7 @@ const AdminDashboard = () => {
           htmlFor="dashboard-drawer"
           className="drawer-overlay lg:hidden"
         ></label>
-        <aside className="menu p-4 w-64 bg-base-200 text-base-content min-h-screen">
+        <aside className="menu p-4 max-w-64 bg-base-200 text-base-content min-h-screen">
           <h2 className="text-xl font-bold mb-4">My Menu</h2>
           <ul className="menu p-0 space-y-1">
             <li>
