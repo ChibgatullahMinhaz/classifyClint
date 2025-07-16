@@ -3,9 +3,10 @@ import { useParams } from "react-router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import Rating from "react-rating";
+import axiosPublic from "../../Service/AxiosPublic";
 
 const fetchClassDetails = async (id) => {
-  const res = await axios.get(`/api/my-enroll-class/${id}`);
+  const res = await axiosPublic.get(`/api/classDetails/${id}`);
   return res.data;
 };
 
@@ -30,7 +31,7 @@ const MyEnrollClassDetails = () => {
 
   const mutation = useMutation(submitAssignment, {
     onSuccess: () => {
-      refetch(); // re-fetch data to update submission count
+      refetch(); 
     },
   });
 
