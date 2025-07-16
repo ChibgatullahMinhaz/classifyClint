@@ -5,3 +5,6 @@
 body{
   background-color: #F5F4FC;
 }
+.minHeight {
+  min-height: calc(100vh - 590px); /* 524 + 64 = 588 */
+}
