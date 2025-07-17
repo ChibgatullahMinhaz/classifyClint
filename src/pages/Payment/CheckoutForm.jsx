@@ -77,8 +77,6 @@ const CheckoutForm = ({ classData, onSuccess }) => {
           title: "Payment Successful",
           text: "Thank you! Your booking has been confirmed.",
         });
-        console.log(result);
-
         // Step 3: Save Booking Info to Backend
         // make payment history
         const bookingHistory = {
@@ -121,7 +119,6 @@ const CheckoutForm = ({ classData, onSuccess }) => {
           "/api/enrollments",
           enrollmentData
         );
-        console.log("📦 Booking saved:", response.data);
         Swal.fire({
           icon: "success",
           title: "Payment Successful",

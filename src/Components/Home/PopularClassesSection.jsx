@@ -32,7 +32,6 @@ const PopularClassesSection = () => {
     currentIndex,
     currentIndex + itemsToShow
   );
-  console.log(id);
   const handleNavigate = (item) => {
     navigate(`/classDetails/${item._id}`);
   };

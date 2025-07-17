@@ -63,7 +63,6 @@ const TeacherRequest = () => {
         title: "Oops!",
         text: error?.response?.data?.error || "Something went wrong.",
       });
-      console.log(error?.response);
     },
   });
 

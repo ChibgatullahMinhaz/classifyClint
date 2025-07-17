@@ -14,7 +14,6 @@ const FeedbackSection = () => {
       return res.data;
     },
   });
-  console.log(feedbacks);
   // Dynamically calculate itemsToShow based on window width
   const [itemsToShow, setItemsToShow] = useState(() => {
     if (typeof window !== "undefined") {

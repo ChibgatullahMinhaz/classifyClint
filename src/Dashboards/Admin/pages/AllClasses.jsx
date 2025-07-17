@@ -53,7 +53,7 @@ const AdminAllClasses = () => {
         error?.response?.data?.message || "Failed to update status.",
         "error"
       );
-      console.log(error)
+
     },
   });
 

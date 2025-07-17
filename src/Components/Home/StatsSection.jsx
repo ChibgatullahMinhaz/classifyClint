@@ -11,7 +11,6 @@ const StatsSection = () => {
       return res.data;
     },
   });
-  console.log(statictis);
   const stats = [
     {
       icon: Users,

@@ -24,7 +24,6 @@ const MyClassDetails = () => {
     queryFn: () => fetchClassInfo(id),
     enabled: !!id,
   });
-  console.log(classInfo);
 
   const handleAssignmentCreated = () => {
     setAssignmentCountState((prev) =>

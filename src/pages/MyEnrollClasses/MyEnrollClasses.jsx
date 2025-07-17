@@ -16,7 +16,6 @@ const MyEnrollClasses = () => {
     },
     enabled: !!user?.email,
   });
-  console.log(enrolledClasses);
   if (isLoading) return <LoadingSpinner />;
 
   return (

@@ -47,7 +47,6 @@ const CreateAssignmentModal = ({ classId, onClose, onCreated }) => {
 
   const onSubmit = (data) => {
     // Add classId with form data
-    console.log(data);
     mutation.mutate({ classId, ...data });
   };
 
