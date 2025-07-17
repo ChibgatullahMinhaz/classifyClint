@@ -30,7 +30,7 @@ const MyEnrollClasses = () => {
             Explore our courses and start learning today!
           </p>
           <Link
-            to="/all-classes"
+            to="/AllClasses"
             className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition"
           >
             Browse Classes

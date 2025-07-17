@@ -6,7 +6,7 @@ import useAuth from "../../Hook/useAuth";
 import axiosSecure from "../../Service/AxiosSecure";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../Components/LoadingSpinner";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { LayoutDashboard } from "lucide-react";
 
 const categories = [
@@ -22,7 +22,7 @@ const experienceOptions = ["Beginner", "Mid-level", "Experienced"];
 const TeachForm = () => {
   const { user, userRole } = useAuth();
   const { register, handleSubmit, reset } = useForm();
-
+  const navigate = useNavigate();
   const {
     data: existingRequest,
     isPending,
@@ -51,6 +51,7 @@ const TeachForm = () => {
         timer: 2000,
         showConfirmButton: false,
       });
+      navigate("/dashboard/my-request");
       reset();
     },
     onError: (error) => {
@@ -84,25 +85,28 @@ const TeachForm = () => {
     return <LoadingSpinner />;
   }
   if (userRole.role === "teacher") {
-  return (
-    <div className="max-w-2xl mx-auto mt-10 text-center">
-      <h2 className="text-3xl font-bold mb-4 text-green-600">You're already a teacher! 🎉</h2>
-      <p className="text-gray-700 mb-2">
-        Great to see you again, mentor! Your knowledge is shaping future minds.
-      </p>
-      <p className="text-gray-600 mb-4">
-        Manage your classes, track student progress, and create new assignments directly from your dashboard.
-      </p>
-      <Link
-        to="/teacher-dashboard"
-        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition"
-      >
-        <LayoutDashboard size={18} /> Go to Dashboard
-      </Link>
-    </div>
-  );
-}
-
+    return (
+      <div className="max-w-2xl mx-auto mt-10 text-center">
+        <h2 className="text-3xl font-bold mb-4 text-green-600">
+          You're already a teacher! 🎉
+        </h2>
+        <p className="text-gray-700 mb-2">
+          Great to see you again, mentor! Your knowledge is shaping future
+          minds.
+        </p>
+        <p className="text-gray-600 mb-4">
+          Manage your classes, track student progress, and create new
+          assignments directly from your dashboard.
+        </p>
+        <Link
+          to="/teacher-dashboard"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition"
+        >
+          <LayoutDashboard size={18} /> Go to Dashboard
+        </Link>
+      </div>
+    );
+  }
 
   if (existingRequest?.status === "pending") {
     return (

@@ -104,71 +104,69 @@ const AdminAllClasses = () => {
       </div>
     );
   }
-
-  return (
+ 
+    return (
     <div>
       <h2 className="text-2xl font-bold mb-4">All Classes</h2>
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Image</th>
-            <th>Posted By</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Actions</th>
-            <th>Progress</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((cls) => (
-            <tr key={cls._id}>
-              <td>{cls.title}</td>
-              <td>
-                <img
-                  src={cls.image}
-                  alt="class"
-                  className="w-16 h-16 object-cover"
-                />
-              </td>
-              <td>{cls.email}</td>
-              <td>{cls.description.slice(0, 40)}...</td>
-              <td>{cls.status}</td>
-              <td className="space-x-2">
-                <button
-                  className="btn btn-success btn-sm"
-                  onClick={() => handleAccept(cls._id)}
-                  disabled={
-                    cls.status === "accepted" || acceptedMutation.isLoading
-                  }
-                >
-                  Approve
-                </button>
-                <button
-                  className="btn btn-error btn-sm"
-                  onClick={() => handleReject(cls._id)}
-                  disabled={
-                    cls.status === "rejected" || rejectedMutation.isLoading
-                  }
-                >
-                  Reject
-                </button>
-              </td>
-              <td>
-                <button
-                  className="btn btn-info btn-sm"
-                  onClick={() =>
-                    navigate(`/dashboard/class-progress/${cls._id}`)
-                  }
-                  disabled={cls.status !== "accepted"}
-                >
-                  Progress
-                </button>
-              </td>
+      <div className="overflow-x-auto">
+        <table className="table-auto w-full min-w-[700px] border-collapse border border-gray-200">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border border-gray-300 px-4 py-2 text-left">Title</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Image</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Posted By</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Description</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Status</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Actions</th>
+              <th className="border border-gray-300 px-4 py-2 text-left">Progress</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((cls) => (
+              <tr key={cls._id} className="hover:bg-gray-50">
+                <td className="border border-gray-300 px-4 py-2">{cls.title}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <img
+                    src={cls.image}
+                    alt="class"
+                    className="w-16 h-16 object-cover rounded"
+                  />
+                </td>
+                <td className="border border-gray-300 px-4 py-2">{cls.email}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {cls.description.slice(0, 40)}...
+                </td>
+                <td className="border border-gray-300 px-4 py-2 capitalize">{cls.status}</td>
+                <td className="border border-gray-300 px-4 py-2 space-x-2 whitespace-nowrap">
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={() => handleAccept(cls._id)}
+                    disabled={cls.status === "accepted" || acceptedMutation.isLoading}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="btn btn-error btn-sm"
+                    onClick={() => handleReject(cls._id)}
+                    disabled={cls.status === "rejected" || rejectedMutation.isLoading}
+                  >
+                    Reject
+                  </button>
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <button
+                    className="btn btn-info btn-sm"
+                    onClick={() => navigate(`/admin-dashboard/class-progress/${cls._id}`)}
+                    disabled={cls.status !== "accepted"}
+                  >
+                    Progress
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

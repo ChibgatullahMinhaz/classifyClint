@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import useAuth from "../../Hook/useAuth";
 import axiosSecure from "../../Service/AxiosSecure";
 import Swal from "sweetalert2";
@@ -20,8 +19,6 @@ const AddClass = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
-  // React Hook Form setup
   const {
     register,
     handleSubmit,

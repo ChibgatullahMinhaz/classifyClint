@@ -9,12 +9,12 @@ import Swal from "sweetalert2";
 import axiosSecure from "../../Service/AxiosSecure";
 
 const fetchClassDetails = async (id) => {
-  const res = await axiosPublic.get(`/class/${id}`);
+  const res = await axiosSecure.get(`/class/${id}`);
   return res.data;
 };
 
 const fetchClassAssignments = async (id) => {
-  const res = await axiosPublic.get(`/getAll/assignments/${id}`);
+  const res = await axiosSecure.get(`/getAll/assignments/${id}`);
   return res.data;
 };
 
@@ -102,7 +102,7 @@ const MyEnrollClassDetails = () => {
         rating,
         description,
       };
-     
+
       await submitEvaluation(review);
       setShowEvalModal(false);
       setRating(0);
@@ -148,48 +148,56 @@ const MyEnrollClassDetails = () => {
       </h2>
 
       <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Assignment Title</th>
-              <th>Description</th>
-              <th>Deadline</th>
-              <th>Submit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {assignments.map((assignment, idx) => (
-              <tr key={assignment._id}>
-                <td>{idx + 1}</td>
-                <td>{assignment?.title}</td>
-                <td>{assignment.description}</td>
-                <td>{assignment.deadline}</td>
-                <td>
-                  <form
-                    onSubmit={(e) => handleAssignmentSubmit(e, assignment._id)}
-                    className="flex flex-col sm:flex-row items-center gap-2"
-                  >
-                    <input
-                      name="docLink"
-                      type="url"
-                      placeholder="Enter document link"
-                      className="input input-bordered input-sm w-full max-w-xs"
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="btn btn-sm btn-primary"
-                      disabled={isPending}
-                    >
-                      {isPending ? "Submitting..." : "Submit"}
-                    </button>
-                  </form>
-                </td>
+        {assignments.length === 0 ? (
+          <>
+            <p>no assigment found</p>
+          </>
+        ) : (
+          <table className="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Assignment Title</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>Submit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {assignments.map((assignment, idx) => (
+                <tr key={assignment._id}>
+                  <td>{idx + 1}</td>
+                  <td>{assignment?.title}</td>
+                  <td>{assignment.description}</td>
+                  <td>{assignment.deadline}</td>
+                  <td>
+                    <form
+                      onSubmit={(e) =>
+                        handleAssignmentSubmit(e, assignment._id)
+                      }
+                      className="flex flex-col sm:flex-row items-center gap-2"
+                    >
+                      <input
+                        name="docLink"
+                        type="url"
+                        placeholder="Enter document link"
+                        className="input input-bordered input-sm w-full max-w-xs"
+                        required
+                      />
+                      <button
+                        type="submit"
+                        className="btn btn-sm btn-primary"
+                        disabled={isPending}
+                      >
+                        {isPending ? "Submitting..." : "Submit"}
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {/* Evaluation Modal */}

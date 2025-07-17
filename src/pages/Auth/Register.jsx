@@ -30,6 +30,7 @@ const Register = () => {
     setShowConfirmPassword((prev) => !prev);
 
   const onSubmit = async (data) => {
+
     if (data.password !== data.confirmPassword) {
       Swal.fire({
         icon: "error",
@@ -42,21 +43,20 @@ const Register = () => {
     try {
       setLoading(true);
       const imageUrl = data?.photoURL;
-      console.log(imageUrl);
       const result = await createUser(data.email, data.password);
       const firebaseUser = result.user;
 
       // ✅ Step 2: Firebase profile update (name + photoURL)
       await updateProfile(firebaseUser, {
         displayName: data.name,
-        // photoURL: imageUrl,
+        photoURL: imageUrl,
       });
 
       const saveUser = {
         firebaseUID: firebaseUser.uid,
         name: data.name,
         email: data.email || "",
-        // photoURL: imageUrl || "",
+        photoURL: imageUrl || "",
         isVerified: firebaseUser.emailVerified,
         role: "student",
         createdAt: new Date(Number(firebaseUser.metadata?.createdAt)),

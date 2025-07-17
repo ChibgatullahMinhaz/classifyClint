@@ -29,6 +29,10 @@ import PaymentPage from "../pages/Payment/PaymentPage";
 import MyRequestPage from "../Dashboards/Student/pages/MyRequestPage";
 import MyClassDetails from "../Dashboards/Student/pages/MyClassDetails";
 import MyEnrollClassDetails from "../pages/MyEnrollClassDetails/MyEnrollClassDetails";
+import ClassProgreess from "../Dashboards/Admin/pages/ClassProgreess";
+import AdminRoutes from "./AdminRoutes";
+import DriverRoute from "./DriverRoutes";
+import UserRoutes from "./UserRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +57,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "payFor/:id",
-        element: <PaymentPage />,
+        element: (
+          <PrivateRoute>
+            <PaymentPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "techOn",
@@ -68,7 +76,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <StudentLayout />,
+    element: (
+      <UserRoutes>
+        <StudentLayout />
+      </UserRoutes>
+    ),
     children: [
       {
         path: "My-enroll-class",
@@ -90,7 +102,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "teacher-dashboard",
-    element: <TeacherLayout />,
+    element: (
+      <DriverRoute>
+        <TeacherLayout />
+      </DriverRoute>
+    ),
     children: [
       {
         index: true,
@@ -116,7 +132,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "admin-dashboard",
-    element: <AdminLayout />,
+    element: (
+      <AdminRoutes>
+        <AdminLayout />
+      </AdminRoutes>
+    ),
     children: [
       {
         path: "Teacher-Request",
@@ -129,6 +149,10 @@ export const router = createBrowserRouter([
       {
         path: "AllClasses",
         Component: AdminAllClasses,
+      },
+      {
+        path: "class-progress/:id",
+        Component: ClassProgreess,
       },
       {
         path: "Profile",
