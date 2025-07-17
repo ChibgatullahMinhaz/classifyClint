@@ -41,8 +41,8 @@ const Register = () => {
 
     try {
       setLoading(true);
-      
-
+      const imageUrl = data?.photoURL;
+      console.log(imageUrl);
       const result = await createUser(data.email, data.password);
       const firebaseUser = result.user;
 
@@ -135,12 +135,12 @@ const Register = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Upload Photo
+              Photo URL
             </label>
             <input
-              type="file"
-              accept="image/*"
-              {...register("photo")}
+              type="text"
+              placeholder="Enter Image URL"
+              {...register("photoURL", { required: "Email is required" })}
               className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>

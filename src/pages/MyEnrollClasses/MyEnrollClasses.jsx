@@ -16,6 +16,7 @@ const MyEnrollClasses = () => {
     },
     enabled: !!user?.email,
   });
+  console.log(enrolledClasses);
   if (isLoading) return <LoadingSpinner />;
 
   return (
@@ -53,7 +54,7 @@ const MyEnrollClasses = () => {
                     {cls.title}
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">
-                    Instructor: {cls.instructorName}
+                    Instructor: {cls.name}
                   </p>
                   <Link
                     to={`/dashboard/myenroll-class/${cls._id}`}

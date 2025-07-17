@@ -28,6 +28,7 @@ import AuthLayout from "../Layouts/AuthLayout";
 import PaymentPage from "../pages/Payment/PaymentPage";
 import MyRequestPage from "../Dashboards/Student/pages/MyRequestPage";
 import MyClassDetails from "../Dashboards/Student/pages/MyClassDetails";
+import MyEnrollClassDetails from "../pages/MyEnrollClassDetails/MyEnrollClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: "My-enroll-class",
         element: <MyEnrollClasses />,
+      },
+      {
+        path: "myenroll-class/:id",
+        element: <MyEnrollClassDetails />,
       },
       {
         path: "my-profile",

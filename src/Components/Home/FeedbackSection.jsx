@@ -14,6 +14,7 @@ const FeedbackSection = () => {
       return res.data;
     },
   });
+  console.log(feedbacks);
   // Dynamically calculate itemsToShow based on window width
   const [itemsToShow, setItemsToShow] = useState(() => {
     if (typeof window !== "undefined") {
@@ -153,7 +154,7 @@ const FeedbackSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 lg:px-12">
             {visibleFeedbacks.map((feedback) => (
               <Card
-                key={feedback.id}
+                key={feedback._id}
                 className="bg-card/80 backdrop-blur-sm border-border hover:shadow-glow transition-all duration-300 group"
               >
                 <CardContent className="p-8">
@@ -162,6 +163,10 @@ const FeedbackSection = () => {
                     <Quote className="w-8 h-8 text-primary/60 group-hover:text-primary transition-colors" />
                   </div>
 
+                  {/* Feedback Text */}
+                  <p className="text-muted-foreground mb-6 leading-relaxed italic">
+                    "{feedback.description}"
+                  </p>
                   {/* Rating */}
                   <div className="flex items-center mb-4">
                     {[...Array(5)].map((_, i) => (
@@ -175,25 +180,19 @@ const FeedbackSection = () => {
                       />
                     ))}
                   </div>
-
-                  {/* Feedback Text */}
-                  <p className="text-muted-foreground mb-6 leading-relaxed italic">
-                    "{feedback.text}"
-                  </p>
-
                   {/* Student Info */}
                   <div className="flex items-center">
                     <img
                       src={feedback.image}
-                      alt={feedback.name}
+                      alt={feedback.userName}
                       className="w-12 h-12 rounded-full object-cover mr-4"
                     />
                     <div>
                       <h4 className="font-semibold text-foreground">
-                        {feedback.name}
+                        {feedback.userName}
                       </h4>
                       <p className="text-sm text-muted-foreground">
-                        {feedback.title}
+                        {feedback.classTitle}
                       </p>
                     </div>
                   </div>
