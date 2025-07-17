@@ -9,6 +9,7 @@ import {
 import axiosSecure from "../../Service/AxiosSecure";
 import useAuth from "../../Hook/useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const ELEMENT_OPTIONS = {
   style: {
@@ -32,7 +33,8 @@ const CheckoutForm = ({ classData, onSuccess }) => {
   const elements = useElements();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(classData);
+  const navigate = useNavigate();
+
   const paybaleAmount = parseFloat(classData?.price);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,7 +112,7 @@ const CheckoutForm = ({ classData, onSuccess }) => {
           discountCode: "",
           enrollmentSource: "web",
         };
-        
+
         const enrollmentData = {
           bookingHistory,
           enrollmentInfo,
@@ -125,7 +127,7 @@ const CheckoutForm = ({ classData, onSuccess }) => {
           title: "Payment Successful",
           text: "Thank you! Your booking has been confirmed.",
         });
-
+        navigate("/dashboard/My-enroll-class");
         onSuccess?.(); // callback if provided
       }
     } catch (err) {

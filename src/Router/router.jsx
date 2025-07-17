@@ -26,6 +26,8 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import AuthLayout from "../Layouts/AuthLayout";
 import PaymentPage from "../pages/Payment/PaymentPage";
+import MyRequestPage from "../Dashboards/Student/pages/MyRequestPage";
+import MyClassDetails from "../Dashboards/Student/pages/MyClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -42,7 +44,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "classDetails/:id",
-        element: <ClassDetails />,
+        element: (
+          <PrivateRoute>
+            <ClassDetails />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "payFor/:id",
@@ -50,7 +56,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "techOn",
-        element: <TeachForm />,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <TeachForm />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -65,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <StudentProfile />,
+      },
+      {
+        path: "my-request",
+        element: <MyRequestPage />,
       },
     ],
   },
@@ -83,6 +98,10 @@ export const router = createBrowserRouter([
       {
         path: "myClass",
         element: <MyClasses />,
+      },
+      {
+        path: "classDetails/:id",
+        element: <MyClassDetails />,
       },
       {
         path: "myProfile",

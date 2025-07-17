@@ -160,7 +160,7 @@ const MyClasses = () => {
                   </button>
                   <button
                     className="btn btn-sm btn-info"
-                    onClick={() => navigate(`/dashboard/my-class/${cls._id}`)}
+                    onClick={() => navigate(`/teacher-dashboard/classDetails/${cls._id}`)}
                     disabled={cls.status !== "accepted"}
                   >
                     See Details

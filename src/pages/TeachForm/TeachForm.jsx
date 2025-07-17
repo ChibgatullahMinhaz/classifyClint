@@ -83,7 +83,6 @@ const TeachForm = () => {
   if (isLoading || isPending) {
     return <LoadingSpinner />;
   }
-  console.log(userRole);
   if (userRole.role === "teacher") {
   return (
     <div className="max-w-2xl mx-auto mt-10 text-center">

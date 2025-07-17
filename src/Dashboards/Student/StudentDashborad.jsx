@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
-import { LayoutDashboard, User, BookOpen, Menu } from "lucide-react";
+import { LayoutDashboard, User, BookOpen, Menu, ClipboardList } from "lucide-react";
 
 // import UserDropdown from "../Admin/Components/UserDropdown/UserDropdown";
 
@@ -60,6 +60,14 @@ const StudentDashboard = () => {
                 className="flex items-center gap-2"
               >
                 <BookOpen size={18} /> My enroll class
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard/my-request"
+                className="flex items-center gap-2"
+              >
+                <ClipboardList size={18}  /> My Request
               </Link>
             </li>
             <li>

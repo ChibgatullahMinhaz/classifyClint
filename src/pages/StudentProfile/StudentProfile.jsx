@@ -3,7 +3,8 @@ import useAuth from '../../Hook/useAuth';
 
 
 const StudentProfile = () => {
-  const { user, loading } = useAuth(); // Assuming you have user info and loading state
+
+  const { user, loading,userRole } = useAuth(); // Assuming you have user info and loading state
 
   if (loading) {
     return <div className="text-center py-10">Loading...</div>;
@@ -20,7 +21,7 @@ const StudentProfile = () => {
         />
         <div className="text-center space-y-2">
           <h3 className="text-xl font-bold">{user?.displayName || "No Name"}</h3>
-          <p className="text-gray-600"><strong>Role:</strong> {user?.role || "Student"}</p>
+          <p className="text-gray-600"><strong>Role:</strong> {userRole?.role || "Student"}</p>
           <p className="text-gray-600"><strong>Email:</strong> {user?.email}</p>
           <p className="text-gray-600"><strong>Phone:</strong> {user?.phone || "Not Provided"}</p>
         </div>

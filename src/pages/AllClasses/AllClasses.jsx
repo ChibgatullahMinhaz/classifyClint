@@ -31,7 +31,7 @@ const AllClasses = () => {
       </div>
     );
   }
-
+console.log(classes)
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold mb-6 text-center">
@@ -59,7 +59,7 @@ const AllClasses = () => {
               <div className="flex justify-between items-center mt-2 text-sm">
                 <span className="font-bold text-blue-600">${cls.price}</span>
                 <span className="text-gray-500">
-                  Enrolled: {cls.totalEnrolled || 0}
+                  Enrolled: {cls.totalEnrollment || 0}
                 </span>
               </div>
               <Link

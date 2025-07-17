@@ -39,28 +39,58 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-      if (currentUser.email) {
-        try {
-          const res = await axiosSecure.get(
-            `users/role?email=${currentUser.email}`
-          );
-          if (res.data) {
-            setUserRole(res.data);
-          }
-        } catch (err) {
-          console.error("Error fetching user role:", err);
-        }
-      } else {
-        setUserRole(null);
-      }
-      setLoading(false);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+  //     setUser(currentUser);
+  //     if (currentUser.email) {
+  //       try {
+  //         const res = await axiosSecure.get(
+  //           `users/role?email=${currentUser.email}`
+  //         );
+  //         if (res.data) {
+  //           setUserRole(res.data);
+  //         }
+  //       } catch (err) {
+  //         console.error("Error fetching user role:", err);
+  //       }
+  //     } else {
+  //       setUserRole(null);
+  //     }
+  //     setLoading(false);
+  //   });
 
-    return () => unsubscribe();
-  }, []);
+  //   return () => unsubscribe();
+  // }, []);
+
+  useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    setUser(currentUser);
+
+    if (currentUser?.email) {
+      try {
+        const res = await axiosSecure.get(
+          `users/role?email=${currentUser.email}`
+        );
+        if (res.data) {
+          setUserRole(res.data);
+        }
+      } catch (err) {
+        console.error("Error fetching user role:", err);
+        setUserRole(null); 
+      }
+    } else {
+      setUserRole(null);
+    }
+
+    setLoading(false);
+  });
+
+  return () => unsubscribe();
+}, []);
+
+
+
+
   const userInfo = {
     user,
     loading,

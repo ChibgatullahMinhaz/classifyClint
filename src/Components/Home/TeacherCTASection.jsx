@@ -1,29 +1,33 @@
 import { ArrowRight, DollarSign, Users, Trophy, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router";
 
+const benefits = [
+  {
+    icon: DollarSign,
+    title: "Earn While Teaching",
+    description:
+      "Set your own pricing and earn competitive revenue from your courses",
+  },
+  {
+    icon: Users,
+    title: "Global Reach",
+    description:
+      "Connect with students from around the world and build your audience",
+  },
+  {
+    icon: Trophy,
+    title: "Expert Recognition",
+    description: "Establish yourself as an industry expert and thought leader",
+  },
+  {
+    icon: BookOpen,
+    title: "Teaching Support",
+    description:
+      "Get comprehensive tools and support to create amazing courses",
+  },
+];
 const TeacherCTASection = () => {
-  const benefits = [
-    {
-      icon: DollarSign,
-      title: "Earn While Teaching",
-      description: "Set your own pricing and earn competitive revenue from your courses"
-    },
-    {
-      icon: Users,
-      title: "Global Reach",
-      description: "Connect with students from around the world and build your audience"
-    },
-    {
-      icon: Trophy,
-      title: "Expert Recognition",
-      description: "Establish yourself as an industry expert and thought leader"
-    },
-    {
-      icon: BookOpen,
-      title: "Teaching Support",
-      description: "Get comprehensive tools and support to create amazing courses"
-    }
-  ];
-
+  const navigate = useNavigate();
   return (
     <section className="py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,8 +40,9 @@ const TeacherCTASection = () => {
                 <span className="block text-primary">Inspire Students.</span>
               </h2>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Join thousands of instructors who are transforming lives through education. 
-                Turn your expertise into impact and income on EduManage.
+                Join thousands of instructors who are transforming lives through
+                education. Turn your expertise into impact and income on
+                EduManage.
               </p>
             </div>
 
@@ -65,11 +70,14 @@ const TeacherCTASection = () => {
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button  className="bg-gradient-to-r  from-blue-600 to-blue-800 hover:shadow-blue-400 flex items-center btn text-blue-100 transition-all duration-300">
+              <button
+                onClick={() => navigate("/techOn")}
+                className="bg-gradient-to-r  from-blue-600 to-blue-800 hover:shadow-blue-400 flex items-center btn text-blue-100 transition-all duration-300"
+              >
                 Start Teaching Today
                 <ArrowRight className="w-5 h-5 ml-2" />
               </button>
-              <button  className="btn btn-primary btn-outline transition-all duration-300">
+              <button className="btn btn-primary btn-outline transition-all duration-300">
                 Learn More
               </button>
             </div>
@@ -78,11 +86,17 @@ const TeacherCTASection = () => {
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-border">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary mb-1">500+</div>
-                <div className="text-sm text-muted-foreground">Active Instructors</div>
+                <div className="text-sm text-muted-foreground">
+                  Active Instructors
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">$2.5M+</div>
-                <div className="text-sm text-muted-foreground">Earned by Teachers</div>
+                <div className="text-2xl font-bold text-primary mb-1">
+                  $2.5M+
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Earned by Teachers
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary mb-1">4.8★</div>
@@ -95,13 +109,13 @@ const TeacherCTASection = () => {
           <div className="relative">
             <div className="relative z-10">
               <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=500&fit=crop&crop=center"
+                src="https://media.istockphoto.com/id/486325400/photo/teacher-asking-her-students-a-question.jpg?s=612x612&w=0&k=20&c=gA6YxA-uGplqjyZfTKBuOcAXEZz7S_KqgGgEGl8YztQ="
                 alt="Inspiring teacher with students"
                 className="w-full h-96 object-cover rounded-2xl shadow-elegant"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl" />
             </div>
-            
+
             {/* Floating Cards */}
             <div className="absolute top-8 -left-4 bg-card border border-border rounded-xl p-4 shadow-elegant">
               <div className="flex items-center space-x-3">
@@ -110,11 +124,13 @@ const TeacherCTASection = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-foreground">$15,420</div>
-                  <div className="text-xs text-muted-foreground">Monthly Earnings</div>
+                  <div className="text-xs text-muted-foreground">
+                    Monthly Earnings
+                  </div>
                 </div>
               </div>
             </div>
-            
+
             <div className="absolute bottom-8 -right-4 bg-card border border-border rounded-xl p-4 shadow-elegant">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -122,7 +138,9 @@ const TeacherCTASection = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-foreground">2,847</div>
-                  <div className="text-xs text-muted-foreground">Students Taught</div>
+                  <div className="text-xs text-muted-foreground">
+                    Students Taught
+                  </div>
                 </div>
               </div>
             </div>
